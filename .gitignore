@@ -1,0 +1,28 @@
+# Dependencies & build artifacts
+node_modules/
+dist/
+build/
+.remotion/
+
+# Generated renders & scratch stills
+out/
+*.mp4
+*.mov
+*.mkv
+*.avi
+
+# Audio synthesis caches & large WAV outputs
+public/audio/_lines_fish/
+public/audio/*.wav
+*.wav
+*.mp3
+
+# Secrets & environment
+.env
+.env.*
+
+# Python & OS
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

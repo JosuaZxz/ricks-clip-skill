@@ -1,0 +1,24 @@
+{
+  "voice": "starter-placeholder",
+  "model": "s2-pro",
+  "durationSec": 5.0,
+  "totalFrames": 150,
+  "lines": {
+    "hook": {
+      "s": 0.1,
+      "e": 4.8,
+      "f0": 3,
+      "f1": 150
+    }
+  },
+  "words": [
+    { "w": "This", "s": 0.10, "e": 0.40, "startMs": 100, "endMs": 400, "line": "hook" },
+    { "w": "deadly", "s": 0.42, "e": 0.90, "startMs": 420, "endMs": 900, "line": "hook" },
+    { "w": "curve", "s": 0.92, "e": 1.40, "startMs": 920, "endMs": 1400, "line": "hook" },
+    { "w": "hid", "s": 1.45, "e": 1.85, "startMs": 1450, "endMs": 1850, "line": "hook" },
+    { "w": "a", "s": 1.87, "e": 2.02, "startMs": 1870, "endMs": 2020, "line": "hook" },
+    { "w": "clever", "s": 2.05, "e": 2.55, "startMs": 2050, "endMs": 2550, "line": "hook" },
+    { "w": "brain", "s": 2.60, "e": 3.15, "startMs": 2600, "endMs": 3150, "line": "hook" },
+    { "w": "trick!", "s": 3.20, "e": 4.70, "startMs": 3200, "endMs": 4700, "line": "hook" }
+  ]
+}
