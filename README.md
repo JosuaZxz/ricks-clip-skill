@@ -1,26 +1,28 @@
 # ricks-clip-skill
 
-**Agent skill and hybrid Blender 5.2 GPU + Remotion pipeline for 9:16 vertical animated story Shorts (`v5.1`).**
+**Agent skill and hybrid Blender 5.2 GPU + Remotion pipeline for 9:16 vertical animated story Shorts (`v5.1.0`).**
 
+[![Version](https://img.shields.io/badge/Version-v5.1.0-E87D0D?style=flat-square)](https://github.com/JosuaZxz/ricks-clip-skill/releases/tag/v5.1.0)
 [![Blender](https://img.shields.io/badge/Blender-5.2%20GPU-E87D0D?style=flat-square)](https://www.blender.org/)
 [![Remotion](https://img.shields.io/badge/Remotion-4.x-0B84F3?style=flat-square)](https://www.remotion.dev/)
 [![Three.js](https://img.shields.io/badge/Three.js-R3F-000000?style=flat-square)](https://threejs.org/)
-[![Audio](https://img.shields.io/badge/Loudness--15.0%20LUFS-FF6B35?style=flat-square)](#audio--dsp-pipeline)
+[![Audio](https://img.shields.io/badge/Loudness--15.0%20LUFS-FF6B35?style=flat-square)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2EA44F?style=flat-square)](./LICENSE)
 
-![Rendered 9:16 Showcase Frames](./docs/showcase.png)
+![Rendered 9:16 Showcase Frames v5.1.0](./docs/showcase-v5.1.png)
 
-`ricks-clip-skill` packages a 2D-cards-in-3D production pipeline that combines outline-FREE multi-part PBR Blender 5.2 EEVEE sets, 30fps on-ones bean-head sprites with bold ink contours, 40-check plan validation, Fish Audio `s2-pro` + Whisper word alignment, crisp pure white bold libass captions, and mastered SFX into self-contained YouTube Shorts (`1080x1920`, `30 fps`, `45-68 s`).
+`ricks-clip-skill` packages a 2D-cards-in-3D production pipeline that pairs outline-FREE multi-part PBR Blender 5.2 EEVEE worlds, 30fps on-ones bean-head sprites with bold ink contours, 40-check plan validation, Fish Audio `s2-pro` + Whisper word alignment, crisp pure white bold libass captions, and mastered SFX into self-contained YouTube Shorts (`1080x1920`, `30 fps`, `45-68 s`).
 
 ---
 
-## What Changed in v5.1
+## Version History & What Changed (`v5.1.0`)
 
-- **Stage-2 Blender 5.2 GPU Final Renderer (`blender_render.py`):** Outline-FREE clean PBR 3D worlds across 10-14 non-overlapping Y corridors (`hide_render` per active shot), stylized sky ramps (`day`, `golden`, `interior`, `night`), cast shadows on 2D actor planes (`emit_mix = 0.50`), thin-lens DOF, `Fog Glow`, and Stage-1 Three.js/Remotion kept purely for rapid blocking.
-- **Multi-Part `bmesh` 3D Props & Vehicles:** Guides and examples for annular open-spoked wheels mounted on unrotated XZ Empty pivots synced to piston and coupling rods, beveled I-beam steel rails with wooden sleepers and ballast, rotary dial phones, and desk hardware instead of primitive discs or plain slabs.
-- **Top-Hat Headroom & 3-Phase Grounded Jumps (`toon.ts` + `cards.ts`):** Exports actor cards at `900x1680` (`designW: 600, designH: 1120, soleY: 1080, heightM: 2.15`) so high hats never clip at the PNG top border, paired with `jumpState` (6f knee crouch anticipation, 3D `pos[1]` parabola with folded airborne knees, and 7f landing absorb), grounded `"run"` feet, and snap-and-hold pose discipline without nonstop idle wobble.
-- **Facing-Aligned Single-Hand Props (`sSide`):** Active `"stamp"` slams route through a dedicated `facing`-aware arm override gripping the stamp inside the hand rather than floating unattached 3D props over bare hands.
-- **40-Check Plan Validator & Pure White Captions:** `validate_plan.py` verifies `public/plan.json` + `words.json` before rendering, and `composite_stage2.mjs` burns centered `98px` `Arial Black` white captions (`10px` black stroke, `MarginV=530`, `--yellow-emphasis` opt-in).
+| Version | Focus | Key Upgrades |
+| :--- | :--- | :--- |
+| **`v5.1.0`** *(Current)* | Realism, Physics & Multi-Part 3D | Tall top-hat safe cards (`900x1680` / `designH: 1120` / `soleY: 1080`), 3-phase `jumpState` (6f knee crouch -> 3D `pos[1]` arc -> 7f landing absorb), grounded `"run"` feet, snap-and-hold acting without idle wobble, facing-aligned hand props (`sSide` stamp grip), and `bmesh` open-spoked wheels on unrotated XZ pivots synced with rods + I-beam tracks + sculpted rotary phones. |
+| **`v5.0.0`** | Outline-FREE Blender PBR | Moved final rendering from Three.js toon cells to outline-FREE PBR Blender 5.2 EEVEE across 10-14 non-overlapping Y corridors, stylized sky ramps, `Fog Glow`, pure white `98px` libass captions, and `40/40` `validate_plan.py`. |
+| **`v2.1.0`** | Kinetic Cast & Blender Stage-2 | Introduced kinetic 30fps batched PNG export (`export-cards.mjs`), Blender Stage-2 compositing (`composite_stage2.mjs`), and rubber-hose character controls. |
+| **`v1.0.0`** | Initial Release | Stage-1 Three.js two-tone cel + `InkPass`, Remotion renderer, Fish Audio `s2-pro`, Whisper forced alignment, and `-15.0 LUFS` DSP mastering. |
 
 ---
 
@@ -123,7 +125,8 @@ ricks-clip-skill/
 ├── LICENSE
 ├── .gitignore
 ├── docs/
-│   └── showcase.png                  # Rendered Stage-2 Blender 9:16 showcase
+│   ├── showcase-v5.1.png             # Latest 4-panel v5.1.0 Blender 5.2 showcase
+│   └── showcase.png                  # Synced latest preview image
 └── skills/
     ├── ricks-clips-animation/
     │   ├── SKILL.md                  # End-to-end v5.1 execution workflow
