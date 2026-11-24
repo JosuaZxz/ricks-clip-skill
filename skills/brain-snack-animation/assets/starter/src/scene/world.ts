@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { DustField, LightShafts, addGroundScatter } from "../engine/atmosphere";
 import { Batch, V, addCartoonVeg, addTownBuilding, boxGeo, lam, quad } from "../engine/buildHelper";
 import { Actor, Fx, Pool } from "../engine/billboard";
 import { NOINK } from "../engine/ink";
@@ -6,12 +7,14 @@ import { grassHD, rep } from "../engine/paint";
 import { asphaltHD, curbConcreteHD, makeSignTex, roadStripeWhiteHD } from "../engine/paintWorld";
 import { WorldBase } from "../engine/worldBase";
 import { stageStarterCast } from "./cast";
-import { SHOTS, camAt } from "./story";
+import { FPS, SHOTS, camAt } from "./story";
 
 export class WorldScene extends WorldBase {
   private pool = new Pool();
   private actors: Actor[] = [];
   private fxs: Fx[] = [];
+  private dust: DustField;
+  private shafts: LightShafts;
 
   constructor() {
     super();
@@ -35,7 +38,14 @@ export class WorldScene extends WorldBase {
     addTownBuilding(terrain, 9.5, 0.02, -14, -Math.PI * 0.5, 8.5, 8, 8.2, 2);
     addCartoonVeg(terrain, "round", -7.2, 0.02, -5.5, 4.6, 11);
     addCartoonVeg(terrain, "tall", 6.2, -0.02, -7.5, 5.2, 19);
+    addGroundScatter(terrain, { count: 48, xRange: [-7.2, 4.4], zRange: [-18, 8], y: 0.01, seed: 21 });
     terrain.build(R, true);
+
+    this.dust = new DustField(R, { count: 75, center: [0, 2.1, -1.5], span: [10, 3.8, 12], seed: 11 });
+    this.shafts = new LightShafts(R, [
+      { pos: [1.6, 5.8, -2.5], rot: [0.18, 0.0, -0.58], length: 8.5, radius: 1.5, opacity: 0.075 },
+      { pos: [-1.4, 5.2, -5.5], rot: [0.15, 0.0, -0.55], length: 8.0, radius: 1.3, opacity: 0.065 },
+    ]);
 
     // Unlit warning sign (always unlit MeshBasicMaterial + NOINK layer per Visual Spec)
     const signGroup = new THREE.Group();
@@ -75,6 +85,8 @@ export class WorldScene extends WorldBase {
     const focus = V(...c.look);
     this.applyLightingAndAtmosphere(id, s.light, cam, scene, focus, midCam.pos, midCam.look);
 
+    this.dust.update(f / FPS, true);
+    this.shafts.setVisible(s.light === "golden", 1.0);
     stageStarterCast(id, f, cam, this.pool, this.actors, this.fxs);
     return focus;
   }

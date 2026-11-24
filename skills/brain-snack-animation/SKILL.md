@@ -1,74 +1,37 @@
 ---
 name: brain-snack-animation
-description: "Build fast-paced 9:16 vertical animated explainer Shorts (45-68s, 30fps) in the Brain Snack / Ricks Clips hybrid 2.5D/3D cel-shaded style using Three.js, React Three Fiber, Remotion, Fish Audio s2-pro + Whisper synced captions, and synthesized SFX. Companion workflow to ricks-clips-animation; use whenever the user asks for Brain Snack animation, bite-sized science/history/psychology fact Shorts, or Ricks Clips style animated videos."
+description: "Build high-retention 9:16 vertical animated explainer Shorts (45-68s, 30fps) in the Brain Snack / Ricks Clips v5.1 hybrid 2D-cards-in-3D style using outline-FREE multi-part PBR Blender 5.2 GPU sets (geometry-nodes ink opt-in via --ink, fast Stage-1 Three.js/Remotion blocking), 10-14 multi-location spaces with animated 3D props, snap-and-hold 30fps sprites (`900x1680` / `designH: 1120` / `soleY: 1080` crown clearance, 3-phase `jumpState` crouch anticipation, grounded runs, facing-aligned hand props), Fish Audio s2-pro + Whisper synced pure white captions, 40-check plan validation, and mastered SFX. Companion workflow to ricks-clips-animation; use whenever the user asks for Brain Snack animation, bite-sized science/history/psychology paradox Shorts, or Ricks Clips style animated videos."
 ---
 
-# Brain Snack / Ricks Clips Animation Pipeline
+# Brain Snack / Ricks Clips Animated Short Pipeline (v5.1)
 
-Create bite-sized 9:16 vertical animated story Shorts combining two-tone cel-shaded 3D environments, screen-space ink outlines, painted HD textures, lit 2D bean-head billboard characters, frame-accurate Fish Audio narration, procedural music/SFX mastered to `-15.0 LUFS`, and bold pop-in captions.
+Create bite-sized `9:16` vertical animated story and explainer Shorts (`45-68s`, `30 fps`) combining outline-FREE multi-part PBR 3D worlds rendered with **Stage-2 Blender 5.2 GPU** (plus fast Stage-1 Three.js/R3F/Remotion blocking), **10-14 distinct 3D locations**, snap-and-hold 2D bean-head billboard characters (`30fps on ones`), Fish Audio `s2-pro` narration with Whisper alignment, procedural music/SFX mastered to `-15.0 LUFS`, and bold white captions.
 
-Always start new projects from [assets/starter](./assets/starter) rather than rewriting the shader/render pipeline from scratch.
+Always start new projects from [assets/starter](./assets/starter) rather than rewriting the shader, character, or render pipeline from scratch. Read [references/style-bible.md](./references/style-bible.md), [references/visual-spec.md](./references/visual-spec.md), and [references/audio-tts.md](./references/audio-tts.md) before authoring scenes or narration.
 
 ## Bundled Resources
-- [assets/starter](./assets/starter): Runnable Remotion 4 + R3F + Three.js + Python audio project scaffold (`src/engine/` shader/toon/ink/DOF stack + `scripts/` DSP/TTS toolkit + 2-shot starter scene).
-- [references/style-bible.md](./references/style-bible.md): 6-beat paradox script formula, `3.7` w/s rhythm, camera hold/glide/flash rules, and YouTube Shorts packaging rules.
-- [references/visual-spec.md](./references/visual-spec.md): `EffectComposer` pass order, `NOINK` layer contract, `day`/`golden` lighting presets, `untone()` neutral inversion, unlit signage, and ANGLE WebGL fixes.
-- [references/audio-tts.md](./references/audio-tts.md): Fish Audio `s2-pro` voice config (`FISH_API_KEY`), `faster-whisper` forced alignment, sidechain ducking, and BS.1770-4 mastering targets.
-- [scripts/render-stills.mjs](./scripts/render-stills.mjs) & [scripts/render-video.mjs](./scripts/render-video.mjs): ANGLE-enabled Remotion still and MP4 renderers.
-- [scripts/short_qa.py](./scripts/short_qa.py) & [scripts/sbs_sheet.py](./scripts/sbs_sheet.py): Per-frame visual/loudness QA report + contact sheets.
+- [assets/starter](./assets/starter): Runnable Remotion + R3F + Stage-2 Blender 5.2 + Python audio scaffold (`src/engine/` v5.1 character & shader stack, `public/plan.json`, `scripts/` TTS/DSP/Blender pipeline, and snap-and-hold `jumpState` starter scene).
+- [references/style-bible.md](./references/style-bible.md): Story beat architecture, `3.5-4.1 w/s` narration rhythm, the 7 film grammar laws, snap-and-hold acting rules, and YouTube Shorts packaging rules.
+- [references/visual-spec.md](./references/visual-spec.md): Stage-1 `EffectComposer` blocking stack, v5.1 `toon.ts` headroom (`900x1680` / `designH: 1120` / `soleY: 1080`), 3-phase `jumpState`, Stage-2 Blender 5.2 outline-FREE multi-part `bmesh` 3D spec, and ANGLE WebGL fixes.
+- [references/audio-tts.md](./references/audio-tts.md): Fish Audio `s2-pro` config (`FISH_API_KEY`), `faster-whisper` alignment, sidechain ducking, and BS.1770-4 mastering (`-15.0 LUFS`).
+- [scripts/validate_plan.py](./scripts/validate_plan.py), [scripts/export-cards.mjs](./scripts/export-cards.mjs), [scripts/blender_render.py](./scripts/blender_render.py), [scripts/composite_stage2.mjs](./scripts/composite_stage2.mjs), [scripts/short_qa.py](./scripts/short_qa.py), [scripts/sbs_sheet.py](./scripts/sbs_sheet.py).
 
-## End-to-End Execution Steps
+## Workflow Summary (4 Steps)
 
-### 0. Scaffold & Verify Environment
-1. Copy `assets/starter/` into a clean target project folder (e.g. `./my-short/`), run `npm install`, and verify TypeScript compilation with `npx tsc --noEmit`.
-2. Ensure Python 3 packages (`numpy scipy faster-whisper requests pillow`) and `ffmpeg` / `ffprobe` are available on PATH.
+1. **Paradox Topic, Beat Script & Voice Lock:**
+   - Pick a vivid true-history, science, engineering, or psychology paradox whose mechanism reads cleanly in spatial 3D props and physical acting.
+   - Keep **Fish Audio `s2-pro`** default narration active (`FISH_REF_ID="b0204e37cbc94a16954c78697b844af2"` US English or `"090af282b9204275ace6fd7aecbf5748"` Indonesian Baritone; requires `FISH_API_KEY`).
 
-### 1. Research & Write Paradox Script (~45-68 s)
-1. Pick one vivid, visual true-history, psychology, engineering, or science paradox that explains its mechanism with concrete props or spatial motion.
-2. Write the 6-beat spoken script following [references/style-bible.md](./references/style-bible.md) (`10-18` words Hook at `0 s`, concrete Setting, Escalation, Mystery/Pivot, Everyday Mechanism, Proof + Ironic Twist ending on the final word).
-3. Target `~3.5-4.1` words/sec active speech with crisp `0.15-0.28 s` beat gaps. Keep total frame count anchored to `TOTAL` in `src/scene/story.ts` at `30 fps`.
+2. **Voiceover Synthesis, Whisper Sync & 40-Check `public/plan.json`:**
+   - Configure `SCRIPT_LINES` in `scripts/gen_voice.py` (`3.5-4.1 w/s`, gaps `0.15-0.28s`), run `python scripts/gen_voice.py`, and verify `public/audio/voice.wav` + monotonic `public/audio/words.json`.
+   - Author `public/plan.json` (`<= 12` shots, `avg >= 4.5s`, **10-14 visual locations/angles** via `planned` whip frames, hero face `<= 2.5s`, `light` shifts, AABBs for hero props, packaging title/description/hashtags).
+   - Run `python scripts/validate_plan.py public/plan.json public/audio/words.json` and pass all **40/40 checks** before rendering.
 
-### 2. Synthesize Narration & Word Timings (`words.json`)
-1. Read [references/audio-tts.md](./references/audio-tts.md) before configuring voice synthesis.
-2. Put beat slots `(line_id, display_text, tts_text, speed, gap_sec, f0, f1)` into `scripts/gen_voice.py`, keep `ENABLE_AUDIO = false` in `src/scene/story.ts` during early layout work, and pass the API key via `FISH_API_KEY` env var (never hardcode secrets in repo files).
-3. Run `python scripts/gen_voice.py` to create `public/audio/voice.wav` and `public/audio/words.json`.
-4. Listen to key generated `_lines_fish/*_fit.wav` slices to verify zero clipped endings, natural prosody (`atempo <= 1.20`), and clean monotonic `words.json` spans.
-5. Update `EMPHASIS_WORDS` in `src/CaptionsOverlay.tsx` with the key punch words from the script.
+3. **Multi-Zone Multi-Part 3D Sets, Snap-and-Hold Acting & Smoke Preview:**
+   - Build non-overlapping Y zones (`0, 150, 300, ...`) in `scripts/blender_scene.py` (`src/scene/world.ts` for Stage-1 blocking) toggled via `hide_render` in `update_frame`, using beveled multi-part `bmesh` models (open-spoked wheels on unrotated XZ Empty pivots + synced rods, I-beam rails + sleepers + ballast, sculpted desk props) kept outline-FREE PBR by default. Never float autonomous 3D hand props (`stamp`, `mug`, `phone`) over bare 2D hands.
+   - Drive characters (`addLivingSeq` in `src/scene/cards.ts`) on tall top-hat-safe cards (`900x1680`, `designW: 600, designH: 1120, soleY: 1080, heightM: 2.15`) using **snap-and-hold pose discipline** (no constant idle wobble), **3-phase `jumpState` leaps** (6f crouch anticipation -> 3D `pos[1]` arc -> 7f landing catch), grounded `"run"` feet, `facing`-aligned single-hand props, `0.7-1.4s` shaped blinks, and static beat faces (`mouthOpen: "auto"`) during third-person narration.
+   - Inspect multi-zone smoke preview frames via `export-cards.mjs` + `blender_render.py --frames-list ... --engine EEVEE --samples 6 --format JPEG` with `read_file` before running a full pass.
 
-### 3. Plan Shots, Cameras & World Architecture
-1. Define shot ranges (`SHOTS`), crossfades (`XFADE`), hook exit flash (`FLASH_AT`), camera curves (`camAt`), hero reactions/reveals, restrained DOF stops (`dofAt`: keep `cInf = 0` on wides, rooms, and signage; `5-8` ONLY on tight hero closeups), and explicit foreground subject `focusAt` in `src/scene/story.ts`.
-   - Keep camera holds gently creeping (`0.15-0.35%/f`) so no span freezes for `>= 12` frames.
-   - Start visual reactions `0-3` frames before their spoken trigger word.
-2. Build 3D geometry in `src/scene/world.ts` extending `WorldBase`:
-   - Wrap static meshes via `Batch` with `terrain.build(R, true)` (`castShadow = true`) and `lam()` (`twoTone()` cel shading), plus `twoTone(new THREE.MeshPhongMaterial(...))` on metallic/painted hero props.
-   - Paint every large wall, floor, rock, and tabletop using HD Canvas2D textures (`panelWallHD`, `concreteFloorHD`, `slateRockHD`, `facadeHD`, never plain solid slabs).
-   - Run camera sightline distance culling on decorative trees and buildings before placing them.
-   - Put all readable signage/blueprints/screens on unlit `MeshBasicMaterial` with `.layers.set(NOINK)`.
-3. Stage 2D bean-head actors (`bodyFront` / `bodySide` from `src/engine/toon.ts`) and 2D effects (`fxBurst`, `fxStars`, contact blobs, `drawSunShadowTail`) via `Pool`, `Actor`, and `Fx` in `src/scene/cast.ts` using `charCanvasSize(dist)` (up to `1800x3000px`, NEVER low fixed caps like `250px`). Keep every billboard and FX plane on layer `NOINK`.
-
-### 4. Inspect Stills Before Full Video Render
-1. Run `npx tsc --noEmit`.
-2. Render key shot frames at `scale=0.75` using `node scripts/render-stills.mjs --comp MainShort --out out/stills <frame1> <frame2> ...`.
-3. View rendered `.jpg` stills directly. Verify:
-   - Razor-crisp character ink lines, signage, and sharp focal subjects (no soft haze or grain soup over walls).
-   - Zero cropped foreground blobs occluding cameras.
-   - Zero unreadable greyed-out signs or floating ungrounded feet without contact blobs + sun shadow tails.
-   - No unwanted box ink outlines around characters/signs (`NOINK` intact) and clean contrast in both `day` and `golden` shots.
-4. Fix geometry/camera/lighting mismatches cleanly in `src/scene/` and re-check stills before encoding video.
-
-### 5. Build Frame-Synced Audio & Mix
-1. Lock shot boundaries and hero impact/reveal frame numbers in `src/scene/story.ts` and mirror those frame constants in `scripts/make_audio.py`.
-2. Author story-matched backing music + frame-locked SFX (`frame / 30.0`) using `dsp.py`, `instruments.py`, and `sfx_gen.py`.
-3. Run `python scripts/make_audio.py` to generate `public/audio/mix.wav` (`-15.0 LUFS`, `-1.2 dBTP`, `-5.2 dB` ducking during speech). Listen to start/middle/end slices to confirm voice clarity and punchy SFX timing.
-4. Flip `ENABLE_AUDIO = true` in `src/scene/story.ts`.
-
-### 6. Render Final MP4 & Mux
-1. Run `npx tsc --noEmit`.
-2. Render clean H.264 video:
-   `node scripts/render-video.mjs --comp MainShort --out out/video_raw.mp4`
-3. Mux video with mastered WAV (`-c:a aac -b:a 192k -ar 48000 -movflags +faststart`):
-   `ffmpeg -y -i out/video_raw.mp4 -i public/audio/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -ar 48000 -movflags +faststart -shortest out/final_short.mp4`
-
-### 7. Automated QA & Cleanup
-1. Run `python scripts/short_qa.py` (from the skill folder) on `out/final_short.mp4 out/qa` and inspect `ffprobe` streams/duration, `-15.0 LUFS`, `SILENCES none`, black/white/frozen spans, and spot-check frames from `out/final_short.mp4`.
-2. Delete intermediate `out/video_raw.mp4` and `%TEMP%\remotion-webpack-bundle-*` temporary directories before delivering `out/final_short.mp4`.
+4. **Final Stage-2 Render, Audio Mastering & QA:**
+   - Export batched transparent 30fps cards + `camPath` (`node scripts/export-cards.mjs --entry src/scene/cards.ts --story src/scene/story.ts --out out/cards`), render Blender 5.2 frames (`out/blender_frames/frame_XXXX.jpg`), build `-15.0 LUFS` audio (`python scripts/make_audio.py`), and composite pure white `98px` bold captions + AAC audio (`node scripts/composite_stage2.mjs --frames out/blender_frames --format jpg --audio public/audio/mix.wav --out out/final.mp4`).
+   - Run `python scripts/short_qa.py out/final.mp4 out/qa_report public/plan.json` plus `sbs_sheet.py` visual inspection, confirm zero black/frozen spans, clean headroom, and deliver a `5-7` word Title Case title, `1-2` sentence factual description, and `4` hashtags.

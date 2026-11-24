@@ -23,6 +23,11 @@ type CaptionChunk = {
   endFrame: number;
 };
 
+/** Set true only if you explicitly want shouty ALL CAPS captions; natural case matches Ricks Clips cleanly. */
+const UPPERCASE_CAPTIONS = false;
+/** Set true only to pop emphasis words in yellow (#FFE44D); default pure #FFFFFF matches @RicksClips3000. */
+const YELLOW_EMPHASIS = false;
+
 /** Replace this set with keywords from each story script that should pop in bright yellow (#FFE44D). */
 const EMPHASIS_WORDS = new Set([
   "DEADLY",
@@ -72,7 +77,7 @@ const buildChunks = (words: WordEntry[], fps: number): CaptionChunk[] => {
       tokens: picked.map((p) => {
         const c = cleanToken(p.w);
         return {
-          text: p.w.toUpperCase(),
+          text: UPPERCASE_CAPTIONS ? p.w.toUpperCase() : p.w,
           highlight: EMPHASIS_WORDS.has(c),
         };
       }),
@@ -110,35 +115,35 @@ export const CaptionsOverlay: React.FC = () => {
         pointerEvents: "none",
         justifyContent: "flex-end",
         alignItems: "center",
-        paddingBottom: 325,
-        paddingLeft: 56,
-        paddingRight: 56,
+        paddingBottom: 530,
+        paddingLeft: 64,
+        paddingRight: 64,
       }}
     >
       <div
         style={{
           fontFamily,
           fontWeight: 900,
-          fontSize: 78,
+          fontSize: 82,
           lineHeight: 1.08,
           textAlign: "center",
-          letterSpacing: "0.015em",
+          letterSpacing: "0.01em",
           transform: `scale(${popScale})`,
           transformOrigin: "center center",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          gap: "0 18px",
+          gap: "0 16px",
         }}
       >
         {active.tokens.map((tok, idx) => (
           <span
             key={`${active.startFrame}_${idx}`}
             style={{
-              color: tok.highlight ? "#FFE44D" : "#FFFFFF",
-              WebkitTextStroke: "10px #151018",
+              color: YELLOW_EMPHASIS && tok.highlight ? "#FFE44D" : "#FFFFFF",
+              WebkitTextStroke: "10px #000000",
               paintOrder: "stroke fill",
-              textShadow: "0 7px 0 #151018, 0 12px 22px rgba(0,0,0,0.62)",
+              textShadow: "0 5px 0 #000000, 0 10px 18px rgba(0,0,0,0.58)",
             }}
           >
             {tok.text}

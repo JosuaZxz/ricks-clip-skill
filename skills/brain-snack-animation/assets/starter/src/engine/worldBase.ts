@@ -1,13 +1,13 @@
 import * as THREE from "three";
 import { NOINK } from "./ink";
-import { LIGHTS, LOOK, LightPreset } from "./lights";
+import { LIGHTS, LOOK, LightMode, LightPreset } from "./lights";
 import { cloudHD } from "./paint";
 import { sunDiscTex, sunHaloTex } from "./paintWorld";
 import { CHAR, TONE, untone } from "./shade";
 
 export type ShotLightingSpec = {
   id: number;
-  light: "day" | "golden";
+  light: LightMode;
 };
 
 /**
@@ -25,7 +25,7 @@ export class WorldBase {
   sun: THREE.DirectionalLight;
   fog = new THREE.Fog("#b8d0ec", 25, 300);
   clouds: THREE.Mesh[] = [];
-  cloudMaps: Record<"day" | "golden", THREE.Texture[]>;
+  cloudMaps: Record<LightMode, THREE.Texture[]>;
   private sunDirs = new Map<number, THREE.Vector3>();
 
   constructor() {
@@ -90,6 +90,8 @@ export class WorldBase {
     this.cloudMaps = {
       day: [0, 1, 2, 3].map((k) => cloudHD(k, LOOK.day.cloud)),
       golden: [0, 1, 2, 3].map((k) => cloudHD(k, LOOK.golden.cloud)),
+      interior: [0, 1, 2, 3].map((k) => cloudHD(k, LOOK.interior.cloud)),
+      night: [0, 1, 2, 3].map((k) => cloudHD(k, LOOK.night.cloud)),
     };
     for (let i = 0; i < 10; i++) {
       const a = (i / 10) * Math.PI * 2 + 0.25;
@@ -115,7 +117,7 @@ export class WorldBase {
   /** Sun direction computed once at each shot's mid-frame so light stays rock-steady inside glides. */
   protected getShotSun(
     shotId: number,
-    lightMode: "day" | "golden",
+    lightMode: LightMode,
     midPos: [number, number, number],
     midLook: [number, number, number],
     preset: LightPreset
@@ -141,7 +143,7 @@ export class WorldBase {
 
   protected applyLightingAndAtmosphere(
     shotId: number,
-    lightMode: "day" | "golden",
+    lightMode: LightMode,
     cam: THREE.PerspectiveCamera,
     scene: THREE.Scene,
     focus: THREE.Vector3,
@@ -213,6 +215,7 @@ export class WorldBase {
 
     for (let i = 0; i < this.clouds.length; i++) {
       const m = this.clouds[i];
+      m.visible = lightMode !== "interior";
       m.lookAt(cam.position.x, m.position.y, cam.position.z);
       (m.material as THREE.MeshBasicMaterial).map = this.cloudMaps[lightMode][i % 4];
     }

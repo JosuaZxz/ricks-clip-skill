@@ -1,8 +1,22 @@
 import * as THREE from "three";
 import { Actor, Fx, Pool, SU, charCanvasSize, drawContactBlob, drawSunShadowTail } from "../engine/billboard";
 import { LIGHTS } from "../engine/lights";
-import { Expr, Outfit, SKIN, bodyFront, fxBurst } from "../engine/toon";
+import {
+  Expr,
+  Outfit,
+  SKIN,
+  WordTiming,
+  blinkAt,
+  bodyFront,
+  fxBurst,
+  fxSparkles,
+  isSpeakingAt,
+  poseSnap,
+} from "../engine/toon";
+import wordsData from "../../public/audio/words.json";
 import { FPS } from "./story";
+
+const WORDS = wordsData.words as WordTiming[];
 
 export const HERO_OUTFIT: Outfit = {
   jacket: "#365f9e",
@@ -52,15 +66,17 @@ export function stageStarterCast(
     const actor = actors[aIdx++];
     const dist = camPos.distanceTo(new THREE.Vector3(x, y + 1.0, z));
     const [cw, ch, k] = charCanvasSize(dist);
-    const blink = (frame + 13) % 78 < 4;
+    const speaking = isSpeakingAt(WORDS, t);
+    const blink = speaking ? 0 : blinkAt(frame, 68, 13);
 
-    actor.r = pool.req(`hero_${keyTag}_b${blink ? 1 : 0}`, cw, ch, k, (p) =>
+    actor.r = pool.req(`hero_${keyTag}_b${blink.toFixed(2)}`, cw, ch, k, (p) =>
       bodyFront(p, HERO_OUTFIT, {
         mode: "stand",
         expr,
         wave,
         facing,
         blink,
+        mouthOpen: "auto",
         seed: 3,
       })
     );
@@ -87,10 +103,11 @@ export function stageStarterCast(
   };
 
   if (shotId === 1) {
-    const wave = Math.sin(t * 7.5);
-    drawActor(0, 0, 0, 1.0, "grin", wave, 0, `s1_${Math.round(frame / 2)}`);
+    // Snap crisp into greeting wave over 8 frames then HOLD solidly (zero idle sine wobble!)
+    const snapWave = poseSnap(frame / 18, 0.45);
+    drawActor(0, 0, 0, 1.0, "grin", snapWave, 0, `s1_${snapWave < 1 ? frame : "hold"}`);
   } else {
-    drawActor(0, 0, 0, 1.02, "shock", undefined, 1, `s2_${Math.round(frame / 4)}`);
+    drawActor(0, 0, 0, 1.02, "meme_shock", undefined, 1, "s2_peak");
     const age = (frame - 76) / 18;
     if (age >= 0 && age <= 1.0) {
       const fx = fxs[fIdx++];
@@ -103,6 +120,15 @@ export function stageStarterCast(
       fx.mesh.lookAt(camPos);
       fx.mesh.visible = true;
     }
+    const sp = fxs[fIdx++];
+    sp.use(false);
+    sp.r = pool.req(`sparkles_${Math.round(frame / 3)}`, 500, 360, 1.0, (p) =>
+      fxSparkles(p, (frame - 75) / 36, "#ffe44d")
+    );
+    sp.mesh.position.set(0, 1.78, 0.22);
+    sp.mesh.scale.set(1.25, 0.9, 1);
+    sp.mesh.lookAt(camPos);
+    sp.mesh.visible = true;
   }
 
   pool.flush();

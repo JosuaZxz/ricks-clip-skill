@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 2,
+  "title": "Why Painted Stripes Stopped Highway Crashes",
+  "description": "A simple optical illusion painted across a deadly bend saved dozens of drivers.",
+  "hashtags": ["#shorts", "#truestory", "#psychology", "#animation"],
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "totalFrames": 150,
+  "voice": {
+    "provider": "fish-audio",
+    "model": "s2-pro",
+    "referenceId": "b0204e37cbc94a16954c78697b844af2"
+  },
+  "lightingChanges": 1,
+  "shots": [
+    {
+      "id": 1,
+      "a": 0,
+      "b": 75,
+      "light": "day",
+      "camStart": [1.4, 2.1, 9.5],
+      "camEnd": [0.9, 2.0, 7.1],
+      "lookAt": [0.0, 1.35, 0.0],
+      "fov": 40,
+      "landFrames": [66, 75],
+      "punchWords": ["curve", "brain"]
+    },
+    {
+      "id": 2,
+      "a": 75,
+      "b": 150,
+      "light": "golden",
+      "camStart": [-2.4, 1.9, 6.8],
+      "camEnd": [-1.8, 1.9, 5.3],
+      "lookAt": [0.0, 1.45, 0.0],
+      "fov": 38,
+      "landFrames": [140, 150],
+      "punchWords": ["trick!"]
+    }
+  ],
+  "actors": [
+    {
+      "id": "hero",
+      "firstFaceSec": 0.0,
+      "pos": [0.0, 0.0, 0.0],
+      "radius": 0.35,
+      "height": 1.95,
+      "grounded": true,
+      "poseTransitions": [
+        { "frame": 0, "expr": "grin", "mode": "stand", "note": "snap wave and hold" },
+        { "frame": 75, "expr": "meme_shock", "mode": "stand", "note": "story turn reaction" }
+      ],
+      "blinkFrames": []
+    }
+  ],
+  "props": [
+    {
+      "id": "curve_road",
+      "keywords": ["curve"],
+      "aabb": [-4.5, 0.0, -40.0, 4.5, 0.05, 40.0],
+      "grounded": true,
+      "visibleFrames": [0, 150]
+    },
+    {
+      "id": "slow_sign",
+      "keywords": ["trick!", "brain"],
+      "aabb": [2.6, 0.0, -5.0, 3.8, 3.0, -4.0],
+      "grounded": true,
+      "visibleFrames": [0, 150]
+    },
+    {
+      "id": "town_building_west",
+      "keywords": [],
+      "aabb": [-16.0, 0.02, -14.75, -7.0, 8.02, -5.25],
+      "grounded": true,
+      "visibleFrames": [0, 150]
+    },
+    {
+      "id": "town_building_east",
+      "keywords": [],
+      "aabb": [5.25, 0.02, -18.1, 13.75, 8.02, -9.9],
+      "grounded": true,
+      "visibleFrames": [0, 150]
+    }
+  ],
+  "flags": {
+    "poseSnapNoIdleBounce": true,
+    "staticBeatFaces": true,
+    "noBlinkWhileSpeaking": true,
+    "postGrainMax": 0.006,
+    "noInkCards": true
+  }
+}

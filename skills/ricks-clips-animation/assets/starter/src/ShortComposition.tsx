@@ -157,3 +157,27 @@ export const ShortComposition: React.FC = () => {
     </AbsoluteFill>
   );
 };
+
+export const CaptionsOnlyComposition: React.FC = () => {
+  const frame = useCurrentFrame();
+  const flashAge = frame - FLASH_AT;
+  const flashOpacity =
+    FLASH_AT >= 0 && flashAge >= 0 && flashAge < 4
+      ? Math.max(0, 1 - flashAge / 4) * 0.92
+      : 0;
+
+  return (
+    <AbsoluteFill style={{ backgroundColor: "transparent" }}>
+      {flashOpacity > 0 && (
+        <AbsoluteFill
+          style={{
+            backgroundColor: "#ffffff",
+            opacity: flashOpacity,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+      {SHOW_CAPTIONS && <CaptionsOverlay />}
+    </AbsoluteFill>
+  );
+};

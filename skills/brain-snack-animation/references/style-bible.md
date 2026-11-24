@@ -1,32 +1,31 @@
-# Style Bible: Hybrid 2.5D/3D Animated Story Shorts
+# Ricks Clips / Brain Snack v5.1 Style Bible
 
-Use this narrative and pacing grammar when scripting and directing vertical (9:16) explainer or fact-story Shorts in the Ricks Clips / Brain Snack format.
+Rules distilled directly from frame-by-frame analysis of real `@RicksClips3000` Shorts (`NpRAk-5VKlo`, `7dGWuCeZ8Ic`, `5c432c69934a7f15` railroad Short, `7xS87iActkU`, dashcam/gunfighter benchmarks) and the 7 quantitative film grammar laws.
 
-## 1. Format & Delivery Metrics
-- **Frame:** `1080x1920`, `30 fps`, `45-68 s` total (`1350-2040` frames). Voice starts at frame `1-4` with zero channel intro, logo sting, or "like and subscribe" outro.
-- **Narration Speed:** `3.5-4.1` words/sec (target median `3.7` w/s). Minimal silence between sentences (`0.15-0.28 s` max) so retention never dips.
-- **Sentence Length:** `~13.5` words median. Plain spoken conversational phrasing, active verbs, present tense (or vivid second-person `"When you..."`). Never explain on screen what the picture already shows.
+## 1. Story, Scene Variety & Narration Architecture (45-68s)
+Real `@RicksClips3000` Shorts never trap the viewer in 3 static rooms for 50 seconds. They move briskly across **10-14+ distinct locations, POV inserts, windows, vehicles, or visual gags** (~3.5-5s per space) driven by one brisk narrator voice:
 
-## 2. Six-Beat Paradox Script Formula
-1. **Paradox Hook (Beat 1, `~10-18` words, `0-5 s`):** State an absurd true event or counterintuitive fix as plain fact without warm-up.
-   - *Pattern:* `"This deadly curve seemed impossible to fix, until Chicago just dumped white paint across the asphalt."`
-2. **Concrete Setting (`1-2` lines):** Establish place, real year/numbers, and immediate obstacle.
-3. **Escalation (`2-4` beats):** Show failed conventional attempts, escalating stakes, or social doubt/mockery (`Giant yellow signs were screaming...`, repeated collisions).
-4. **Mystery / Pivot (`1-2` lines):** Frame the hidden failure mode (`speed adaptation`, `reflex delay`) and reveal the pivot idea (`"In 2006, engineers gave up on signs and tried a psychology trick instead."`).
-5. **Everyday Mechanism (`2-3` lines):** Explain *why* the trick works visually so a viewer understands in one glance (e.g., closer stripes make your eyes think you are speeding up).
-6. **Measured Proof + Ironic Twist (`2` lines):** Land the real statistic first, then end abruptly on the ironic takeaway. Stop cleanly right after the last word.
+1. **0-5s Hook & Fast Kicker (2 spaces):** Open directly on the protagonist inside a grounded setting (`<= 2.5s` first hero face), then whip onto a crisp close-up clue, headline, or problem prop (`LE JOURNAL`, poster, radar screen).
+2. **5-18s Setup & Stakes (2-3 spaces):** Jump into forged prep / secret room / ensemble briefing (`5+` cast reacting together) as tension climbs.
+3. **18-32s The Deal / Attempt (2-3 spaces + 3D Action Props):** Animate actual 3D world props (sliding documents across desks, slamming seals/stamps, opening briefcases, digging/building) synced to character squash-and-recoil reactions.
+4. **32-48s Escape / Failure / Twist (`day -> night -> golden -> day`):** Keep physical momentum high across transport interiors (moving exterior trees past windows), speeding exteriors (spinning wheels/cars), dramatic low-angle sky cranes, moody night alleys/phone booths, and sudden lightbulb epiphanies.
+5. **48-65s Climax & Punchline:** Peak meme reaction (`meme_shock`, glowing sirens) -> high-energy sprint/chase camera -> soaring crane pull-back onto the iconic landmark & irony billboard + sting.
 
-## 3. Camera & Editing Rules
-- **Hold ~80% of frames with subtle creep:** Avoid pure static cameras (`>= 12` frozen frames trip QA and kill momentum). Always add a slow push-in (`~0.15-0.35%/f`) or tiny sway.
-- **Ease-out glides (`18-40` frames):** Peak angular/linear speed at the start of a move, smoothly settling onto the focal subject.
-- **Transitions:**
-  - **4-frame pure white flash** exiting the Hook into Beat 2 (`FLASH_AT`).
-  - **6-8 frame smooth crossfade (`XFADE`)** when jumping location or time of day.
-  - **Impact kicks:** Fast decaying roll/pitch camera shakes (`7-10` frames) locked to crashes, slammed brakes, or sudden shockbeats.
-- **Camera Sightlines:** Keep hero camera paths clear of foreground walls/trees. A blurred prop clipping the lens looks like a solid colored blob.
+**Voice Pacing & Audio Targets:**
+- **Speech Speed:** `3.5-4.1 words/sec` (`~3.7 w/s` sweet spot).
+- **Tight Gaps:** Trim leading/trailing TTS breaths (`-55 dB`); keep gaps between lines `0.15-0.28s` (`<= 0.32s` max everywhere).
+- **Dynamic Loudness:** Master voice + SFX + underscore bed to **`-15.0 LUFS` integrated / `-3.2 dBFS` (`<= -1.2 dBTP`)**.
 
-## 4. Captions & Packaging
-- **Captions:** Large bold uppercase (`76-80 px`, `Roboto 900`), crisp black stroke + drop offset shadow (`#151018`) centered in the bottom-third safe zone (`paddingBottom: 325`). Pair at most 2 short words (`combined <= 13 chars`), highlight key punch words in `#FFE44D`, and snap cleanly frame-exact from Whisper word timestamps (`words.json`). Keep `SHOW_CAPTIONS = false` only if the user explicitly asks for captionless video.
-- **YouTube Shorts Packaging:** Use a `5-7` word curiosity title in Title Case without hashtags/emojis (e.g. `How Paint Tricked Drivers Into Braking`), matching clean single-line or empty description, marked **"No, it's not made for kids"** so comments stay enabled.
-- **Originality Rule:** Match the visual craft, pacing, and cinematic structure. Never trace, copy, or reuse any reference channel scripts, proprietary audio, or cloned creator voices.
+## 2. The 7 Quantitative Film Grammar Laws
+1. **Never Freeze the Camera (`Rule 1`):** Camera must never sit dead static (`0%` held frames in QA). Keep continuous `push()` creep, synchronized chase tracking (`mix(x0, x1, smooth(u))` matching character motion!), and subtle handheld/impact shakes (`kickAt`).
+2. **Respect 9:16 Horizontal Width & Top-Hat Headroom (`Rule 2`):** Vertical `fov 38-48 deg` in 9:16 yields narrow horizontal width (`2 * dist * tan(vfov/2) * 9/16`). Export actor cards at `900x1680` (`designW: 600, designH: 1120, soleY: 1080, heightM: 2.15`) and drive leaps via 3D `pos[1]` rather than shoving crowns into the top of the 2D bitmap. Always check wide table ensembles, locomotive trackside framing (clear foreground poles!), and jump apexes across preview frames so characters, top hats, flanking bosses, and signs keep clean edge margins.
+3. **High-Location Velocity Inside Validated Shot Bounds (`Rule 3`):** Keep `<= 12` `plan.json` shots (`avg >= 4.5s`) while packing **10-14 distinct 3D locations / angles** via `KEYS` (`cut: true` + `"planned"` whip frame entries + continuous `16-26f` whips) and per-frame `lightAt(f)` mood switches.
+4. **First Face Early (`Rule 4`):** Hero face MUST appear clearly inside frame by `<= 2.5s`.
+5. **Outline-FREE Multi-Part PBR 3D Worlds + Stylish Mood Contrast (`Rule 5`):** Keep 3D buildings, rooms, furniture, tracks, and vehicles clean outline-FREE PBR (`--ink` off by default) built with genuine beveled multi-part `bmesh` detail (open-spoked rotating wheels on unrotated XZ pivots synced with rods, I-beam rails + sleepers + ballast, dialed rotary phones, handled cups) paired with rich sky ramps (`day` cerulean, `golden` warm amber, `night` twilight/indigo, `interior` tungsten sconce lighting) so `#1f1526` bold-ink 2D characters pop crisply off the world.
+6. **Snap-and-Hold Acting & Grounded Physics (`Rule 6`):** Drive characters at **30fps on ones** (`addLivingSeq`) with purposeful snap-and-hold pose discipline rather than continuous idle sine wobble. Every jump MUST use the 3-phase `jumpState` arc (6f `knees` crouch anticipation -> airborne 3D `pos[1]` arc with folded knees -> 7f landing absorb), runs MUST keep planted stride ground contact (`runHop` only at full stride peak), active hand props (`stamp`, `briefcase`, `contract`) MUST be gripped cleanly inside the character hand (never ghosted autonomously in 3D), and **third-person narration keeps `mouthOpen: "auto"` static expressive beat faces**.
+7. **Props Alive in World + Hero Frame Coverage (`Rule 7`):** Every key noun (`seal`, `contract`, `stamp`, `train`, `phone`, `lightbulb`, `sign`) sits cleanly inside the active camera frustum (`validate_plan.py` 40/40 PASS) with articulated 3D geometry and physical `update_frame` animation (spinning spoked wheels + rods, passing poles/trees, stamped ink reveals, flashing sirens).
 
+## 3. Captions & Packaging
+- **Captions (`composite_stage2.mjs` & `CaptionsOverlay.tsx`):** `Arial Black` / `Roboto 900`, **`98px` ASS (`MarginV=530`), pure bright `#FFFFFF` with heavy `10px` `#000000` outline** (`--yellow-emphasis` strictly opt-in). Keep `1-2` short punchy words centered just below the mid-line eye zone (`MarginV=530`) in natural case matching `@RicksClips3000`.
+- **Shorts Title:** `5-7` words in Title Case naming the concrete hook + irony.
+- **Description & Tags:** `1-2` crisp factual sentences plus `4` broad topic hashtags (`#shorts #truestory ...`).

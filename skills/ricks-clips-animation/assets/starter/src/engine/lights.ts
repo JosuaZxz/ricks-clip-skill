@@ -12,7 +12,8 @@ export type LightPreset = {
   sunCol: string; sunI: number; sky: string; ground: string; hemiI: number;         // three lights (unpatched mats only)
   bias: number; normalBias: number;
 };
-export const LIGHTS: Record<"day" | "golden", LightPreset> = {
+export type LightMode = "day" | "golden" | "interior" | "night";
+export const LIGHTS: Record<LightMode, LightPreset> = {
   day: {
     az: 75, el: 48,
     lit: [1.58, 1.5, 1.33], shade: [0.3, 0.29, 0.36], lift: [0.05, 0.06, 0.11], lambert: 0.35, sideK: 0.84, term: 0.2,
@@ -31,6 +32,24 @@ export const LIGHTS: Record<"day" | "golden", LightPreset> = {
     sunCol: "#ffab5e", sunI: 5.5, sky: "#d8b0b8", ground: "#8a6a60", hemiI: 0.5,
     bias: -0.0006, normalBias: 0.03,
   },
+  interior: {
+    az: 135, el: 56,
+    lit: [1.45, 1.18, 0.84], shade: [0.26, 0.20, 0.24], lift: [0.04, 0.03, 0.05], lambert: 0.42, sideK: 0.78, term: 0.12,
+    charTint: [1.0, 0.88, 0.74], charShade: 0.84, charGrad: 0.11, bodyGrad: 0.26, sideTint: [0.82, 0.78, 0.88],
+    blob: [0.42, 0.34, 0.32], actorShadow: false,
+    top: "#221614", hor: "#3e271e", skyCurve: [0.0, 0.5, 1.0], fog: "#322019", fogNear: 12, fogFar: 60, sunDisc: "#000000",
+    sunCol: "#ffdca8", sunI: 2.2, sky: "#7e5a46", ground: "#2a1b16", hemiI: 0.45,
+    bias: -0.0003, normalBias: 0.02,
+  },
+  night: {
+    az: 120, el: 38,
+    lit: [0.95, 1.12, 1.48], shade: [0.16, 0.18, 0.28], lift: [0.03, 0.04, 0.08], lambert: 0.38, sideK: 0.78, term: 0.14,
+    charTint: [0.86, 0.90, 1.0], charShade: 0.85, charGrad: 0.09, bodyGrad: 0.24, sideTint: [0.76, 0.82, 0.96],
+    blob: [0.30, 0.32, 0.44], actorShadow: false,
+    top: "#0b1124", hor: "#1d2b48", skyCurve: [0.0, 0.5, 1.0], fog: "#16223a", fogNear: 20, fogFar: 180, sunDisc: "#000000",
+    sunCol: "#a8c6ff", sunI: 1.8, sky: "#314772", ground: "#182032", hemiI: 0.42,
+    bias: -0.0003, normalBias: 0.02,
+  },
 };
 
 /** world-only look per light (sky stops by elevation in degrees, river colours, cloud palette). All colours are
@@ -42,7 +61,7 @@ export type WorldLook = {
   sat: number;                                                // shade.ts uSat: world albedo saturation (1 = as painted)
   cloud: { lit: string; mid: string; shade: string };
 };
-export const LOOK: Record<"day" | "golden", WorldLook> = {
+export const LOOK: Record<LightMode, WorldLook> = {
   day: {
     // depth.md 2.2: horizon #9fb6e6 just above the skyline, upper sky #5e93d9 at ~20 deg (grade: frame top #5997e2)
     sky: { c: ["#b8d0ec", "#9cbfea", "#6a9fe0", "#4f8cdb", "#3373cc"], e: [0, 3, 8, 16, 40] },
@@ -59,5 +78,19 @@ export const LOOK: Record<"day" | "golden", WorldLook> = {
     cloud: { lit: "#ffd2a8", mid: "#f2a08f", shade: "#a98fc4" },
     bounce: [0.04, 0.02, 0.0],
     sat: 1.1,
+  },
+  interior: {
+    sky: { c: ["#3d261c", "#321f17", "#281913", "#201410", "#19100d"], e: [0, 5, 14, 25, 45] },
+    water: { near: "#1e2e4a", mid: "#18243c", far: "#141d32", crest: "#667890", trough: "#0d121f", glint: "#ffdca8", shade: [0.3, 0.25, 0.35] },
+    cloud: { lit: "#3a251d", mid: "#2d1d17", shade: "#221511" },
+    bounce: [0.06, 0.03, 0.01],
+    sat: 1.06,
+  },
+  night: {
+    sky: { c: ["#1d2b48", "#162138", "#11192c", "#0d1323", "#090e1a"], e: [0, 5, 14, 25, 45] },
+    water: { near: "#152340", mid: "#101b32", far: "#0b1426", crest: "#4c6a9c", trough: "#070c17", glint: "#a8c6ff", shade: [0.24, 0.28, 0.42] },
+    cloud: { lit: "#24324d", mid: "#1c273e", shade: "#141c2e" },
+    bounce: [0.02, 0.03, 0.06],
+    sat: 1.04,
   },
 };
